@@ -1,0 +1,70 @@
+<Schema name="procurawarehouse">
+  <Cube name="processo" cache="true" enabled="true">
+    <Table name="processo" schema="public">
+    </Table>
+    <Dimension type="StandardDimension" foreignKey="giorno" highCardinality="false" name="Tempo">
+      <Hierarchy name="Periodo" hasAll="true" allMemberName="Tutti i periodi">
+        <Table name="tempo" schema="public">
+        </Table>
+        <Level name="Anno" column="anno" nameColumn="anno" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Trimestre" column="trimestre" nameColumn="trimestre" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Mese" column="mese" nameColumn="mese" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Giorno" column="giorno" nameColumn="giorno" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="idimputato" highCardinality="false" name="Imputato">
+      <Hierarchy name="Genere" hasAll="true" allMemberName="Tutti i generi">
+        <Table name="imputato" schema="public">
+        </Table>
+        <Level name="Genere imputato" column="genere" nameColumn="genere" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Id" column="id" nameColumn="id" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="Eta" hasAll="true" allMemberName="Tutte le eta">
+        <Table name="imputato" schema="public">
+        </Table>
+        <Level name="Fascia eta imputato" column="fasciaeta" nameColumn="fasciaeta" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Eta imputato" column="eta" nameColumn="eta" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Id" column="id" nameColumn="id" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="Organizzazione" hasAll="true" allMemberName="Tutte le organizzazioni">
+        <Table name="imputato" schema="public">
+        </Table>
+        <Level name="Organizzazione criminale imputato" column="organizzazionecriminale" nameColumn="organizzazionecriminale" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Id" column="id" nameColumn="id" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="idindagine" highCardinality="false" name="Indagine">
+      <Hierarchy name="Durata" hasAll="true" allMemberName="Tutte le durate">
+        <Table name="indagine" schema="public">
+        </Table>
+        <Level name="Durata indagine" column="durata" nameColumn="durata" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Id" column="id" nameColumn="id" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="Prove" hasAll="true" allMemberName="Tutte le prove">
+        <Table name="indagine" schema="public">
+        </Table>
+        <Level name="Quantita di prove" column="prove" nameColumn="prove" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Id" column="id" nameColumn="id" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Condanne" column="percentualecondanne" aggregator="avg" visible="true" caption="Percentuale di condanne (%)">
+    </Measure>
+    <Measure name="Durata" column="durataprocesso" aggregator="avg" visible="true" caption="Durata media dei processi (giorni)">
+    </Measure>
+  </Cube>
+</Schema>
